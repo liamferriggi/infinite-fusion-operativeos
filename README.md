@@ -37,6 +37,18 @@ Applied tokens:
 - Border: `#E4E6EF`
 - Font: `Segoe UI`
 
+## Documentation
+
+Full project context and backup documentation lives in `docs/`:
+
+- `docs/PROJECT_CONTEXT.md`
+- `docs/ARCHITECTURE.md`
+- `docs/DEPLOYMENT.md`
+- `docs/ROADMAP.md`
+- `docs/MARKET_RESEARCH_SUMMARY.md`
+- `docs/BRANDING.md`
+- `docs/BACKUP_MANIFEST.md`
+
 ## MVP Loop
 
 1. Capture or load workflow steps.
