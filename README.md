@@ -12,6 +12,12 @@ Current local dev URL:
 http://localhost:4177
 ```
 
+Production URL:
+
+```text
+https://liamferriggi.github.io/infinite-fusion-operativeos/
+```
+
 ## Branding
 
 Brand assets and tokens come from `liamferriggi/infinitefusion-branding`.
