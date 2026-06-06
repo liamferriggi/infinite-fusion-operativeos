@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Infinite Fusion OperativeOS MVP</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <div class="brand">
+          <div class="brand-mark">
+            <img src="./brand/logo-stacked.png" alt="Infinite Fusion" />
+          </div>
+          <div>
+            <strong>OperativeOS</strong>
+            <span>Infinite Fusion</span>
+          </div>
+        </div>
+
+        <nav class="nav-list">
+          <button class="nav-item active" data-view="capture" type="button">Capture</button>
+          <button class="nav-item" data-view="sop" type="button">SOP</button>
+          <button class="nav-item" data-view="agent" type="button">Agent</button>
+          <button class="nav-item" data-view="review" type="button">Review</button>
+        </nav>
+
+        <section class="workspace-card">
+          <span class="label">Pilot Vertical</span>
+          <strong>Gym admin ops</strong>
+          <p>Member onboarding, failed payments, booking changes, and cancellation workflows.</p>
+        </section>
+      </aside>
+
+      <section class="main-panel">
+        <header class="topbar">
+          <div>
+            <span class="eyebrow">MVP prototype</span>
+            <h1>Record an expert workflow, then turn it into a supervised agent.</h1>
+          </div>
+          <img class="wordmark" src="./brand/logo-wordmark.png" alt="Infinite Fusion" />
+          <div class="topbar-actions">
+            <button class="ghost-button" id="loadSample" type="button">Load sample</button>
+            <button class="primary-button" id="generateAll" type="button">Generate outputs</button>
+          </div>
+        </header>
+
+        <section class="metrics-grid" aria-label="Workflow metrics">
+          <article>
+            <span>Captured steps</span>
+            <strong id="metricSteps">0</strong>
+          </article>
+          <article>
+            <span>Decision points</span>
+            <strong id="metricDecisions">0</strong>
+          </article>
+          <article>
+            <span>Agent confidence</span>
+            <strong id="metricConfidence">--</strong>
+          </article>
+          <article>
+            <span>Human approvals</span>
+            <strong id="metricApprovals">0</strong>
+          </article>
+        </section>
+
+        <section class="view active" id="captureView">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Capture</span>
+              <h2>Workflow event timeline</h2>
+            </div>
+            <button class="secondary-button" id="addStep" type="button">Add manual step</button>
+          </div>
+
+          <div class="capture-layout">
+            <form class="input-panel" id="workflowForm">
+              <label>
+                Workflow name
+                <input id="workflowName" value="Failed payment recovery" />
+              </label>
+              <label>
+                Business goal
+                <textarea id="workflowGoal">Recover overdue payments without losing member goodwill.</textarea>
+              </label>
+              <label>
+                Source application
+                <input id="workflowApp" value="Gym management portal" />
+              </label>
+              <label>
+                Operator notes
+                <textarea id="operatorNotes">Check payment status, confirm contact details, send the right follow-up, and flag sensitive cases for manager review.</textarea>
+              </label>
+            </form>
+
+            <div class="timeline-panel">
+              <ol class="timeline" id="timeline"></ol>
+            </div>
+          </div>
+        </section>
+
+        <dialog class="step-dialog" id="stepDialog">
+          <form class="step-form" id="stepForm" method="dialog">
+            <div class="section-heading">
+              <div>
+                <span class="eyebrow">Captured step</span>
+                <h2>Edit workflow step</h2>
+              </div>
+              <button class="icon-button" id="closeStepDialog" type="button" aria-label="Close">x</button>
+            </div>
+            <label>
+              Step title
+              <input id="stepTitle" />
+            </label>
+            <label>
+              Operator action
+              <textarea id="stepDescription"></textarea>
+            </label>
+            <label>
+              Action type
+              <select id="stepActionType">
+                <option value="navigate">navigate</option>
+                <option value="inspect">inspect</option>
+                <option value="validate">validate</option>
+                <option value="message">message</option>
+                <option value="create_task">create_task</option>
+                <option value="api_call">api_call</option>
+                <option value="manual">manual</option>
+              </select>
+            </label>
+            <label>
+              System target / selector
+              <input id="stepSelector" />
+            </label>
+            <label>
+              Expected result
+              <textarea id="stepExpected"></textarea>
+            </label>
+            <div class="toggle-row">
+              <label class="toggle-label">
+                <input id="stepDecision" type="checkbox" />
+                Decision point
+              </label>
+              <label class="toggle-label">
+                <input id="stepRisk" type="checkbox" />
+                Requires approval
+              </label>
+            </div>
+            <div class="dialog-actions">
+              <button class="ghost-button" id="deleteStep" type="button">Delete</button>
+              <button class="primary-button" type="submit">Save step</button>
+            </div>
+          </form>
+        </dialog>
+
+        <section class="view" id="sopView">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Documentation</span>
+              <h2>Deep SOP</h2>
+            </div>
+            <button class="secondary-button" id="copySop" type="button">Copy SOP</button>
+          </div>
+          <pre class="output-block" id="sopOutput"></pre>
+        </section>
+
+        <section class="view" id="agentView">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Execution blueprint</span>
+              <h2>Agent workflow JSON</h2>
+            </div>
+            <button class="secondary-button" id="copyAgent" type="button">Copy JSON</button>
+          </div>
+          <pre class="output-block code" id="agentOutput"></pre>
+        </section>
+
+        <section class="view" id="reviewView">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Human-in-loop</span>
+              <h2>Run review console</h2>
+            </div>
+            <button class="secondary-button" id="simulateRun" type="button">Simulate run</button>
+          </div>
+          <div class="review-list" id="reviewList"></div>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
